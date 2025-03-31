@@ -19,7 +19,22 @@ def merge_sort(arr):
                 j += 1
             k += 1
 
-arr_test = [2, 3, 5, 1, 7, 4, 4, 2, 6, 0]
-merge_sort(arr_test)
+# reading data from a file
+with open("input.txt", "r") as file:
+    arr = list(map(int, file.readline().split()))
 
-print(arr_test)
+#  range
+min_value = int(input("min value: "))
+max_value = int(input("max value: "))
+
+# data filtering
+filtered_arr = [x for x in arr if min_value <= x <= max_value]
+
+# sorting
+merge_sort(filtered_arr)
+
+# saving to file
+with open("output.txt", "w") as file:
+    file.write(" ".join(map(str, filtered_arr)))
+
+print("The sorted data was saved in the file output.txt")
