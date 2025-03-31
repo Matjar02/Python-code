@@ -1,13 +1,15 @@
+import unittest
+
 def merge_sort(arr):
     if len(arr) > 1:
         left_arr = arr[:len(arr)//2]
         right_arr = arr[len(arr)//2:]
         
-        # recursion
+        # Rekurencja
         merge_sort(left_arr)
         merge_sort(right_arr)
         
-        # merge
+        # Scalanie
         i = j = k = 0
         
         for _ in range(len(left_arr) + len(right_arr)):
@@ -19,22 +21,20 @@ def merge_sort(arr):
                 j += 1
             k += 1
 
-# reading data from a file
-with open("input.txt", "r") as file:
-    arr = list(map(int, file.readline().split()))
+def filter_numbers(arr, min_value, max_value):
+    return [x for x in arr if min_value <= x <= max_value]
 
-#  range
-min_value = int(input("min value: "))
-max_value = int(input("max value: "))
+class TestSortingAndFiltering(unittest.TestCase):
+    def test_merge_sort(self):
+        data = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3]
+        sorted_data = sorted(data)
+        merge_sort(data)
+        self.assertEqual(data, sorted_data)
+    
+    def test_filter_numbers(self):
+        data = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+        filtered_data = filter_numbers(data, 3, 7)
+        self.assertEqual(filtered_data, [3, 4, 5, 6, 7])
 
-# data filtering
-filtered_arr = [x for x in arr if min_value <= x <= max_value]
-
-# sorting
-merge_sort(arr)
-
-# saving to file
-with open("output.txt", "w") as file:
-    file.write(" ".join(map(str, arr)))
-
-print("The sorted data was saved in the file output.txt")
+if __name__ == "__main__":
+    unittest.main()
