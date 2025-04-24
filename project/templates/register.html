@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+    <style>
+        .form-group 
+        {
+            margin-bottom: 15px;
+        }
+        .form-group label 
+        {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input 
+        {
+            padding: 5px;
+            width: 100%;
+            max-width: 300px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <h2>Sign in</h2>
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+        messages %} {% for category, message in messages %} {% if category ==
+        'error' %}
+        <p style="color: red;">{{ message }}</p>
+      {% else %}
+        <p style="color: green;">{{ message}}</p>
+        {% endif %} {% endfor %} {% endif %} {% endwith %}
+    <form method="post">
+        <div class="form-group">
+            <label for="username">Login</label>
+            <input type="text" name="username" id="username">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password">
+        </div>
+        <input type="submit" value="Sign in">
+    </form>
+    <br>
+    <p>You already have an account <a href="{{ url_for('login') }}">Login</a></p>
+</body>
+</html>
