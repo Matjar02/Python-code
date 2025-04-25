@@ -29,14 +29,8 @@ def home():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        #username = request.form['username']
         user = User.query.filter_by(username=request.form['username']).first()
-        #password = request.form['password']
-        # if username in users and users[username] == password:
-        #    session['username'] = username
-        #    return redirect(url_for('home'))
-        #else:
-        #    return "Incorrect login or password"
+        
         if user and bcrypt.check_password_hash(user.password, request.form['password']):
             session['username'] = user.username
             flash('Logged in successfully!', category='success')
