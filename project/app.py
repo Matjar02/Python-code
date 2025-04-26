@@ -15,10 +15,6 @@ bcrypt = Bcrypt(app)
 
 with app.app_context():
     db.create_all()
-#users = {
-#    "admin": "password123",
-#    "user": "test123"
-#}
 
 @app.route('/')
 def home():
@@ -43,7 +39,12 @@ def login():
 def register():
     if request.method == 'POST':
         username = request.form['username']
+        password = request.form['password']
+        if len(password) < 1:
+            flash('Password must be at least 1 characters', category='error')
+            return redirect(url_for('register'))
         password = bcrypt.generate_password_hash(request.form['password']).decode('utf-8')
+        
         if User.query.filter_by(username=username).first():
             flash('User already exists', category='error')
         else:
